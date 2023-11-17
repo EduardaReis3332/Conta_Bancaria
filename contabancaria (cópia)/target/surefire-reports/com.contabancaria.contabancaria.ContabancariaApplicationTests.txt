@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: com.contabancaria.contabancaria.ContabancariaApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 9.477 s <<< FAILURE! - in com.contabancaria.contabancaria.ContabancariaApplicationTests
+contextLoads  Time elapsed: 0.021 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is javax.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution
+Caused by: javax.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution
+Caused by: org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution
+Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: File corrupted while reading record: null. Possible solution: use the recovery tool [90030-200]
+Caused by: java.lang.IllegalStateException: The write format 3 is larger than the supported format 1, and the file was not opened in read-only mode [1.4.200/5]
+
