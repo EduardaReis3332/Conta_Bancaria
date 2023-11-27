@@ -1,6 +1,8 @@
 # Conta_Bancaria
 Atividade Spring Web + Data (JPA) com testes no JMeter
 
+Desenvolvido por: ***[Eduarda Reis](https://github.com/EduardaReis3332)*** e ***Eduardo Cordovil***
+
 O projeto é composto pelas pastas: 
 
 [ifpa.appjpa.domain](https://github.com/EduardaReis3332/Conta_Bancaria/tree/main/contabancaria%20(c%C3%B3pia)/src/main/java/ifpa/appjpa/domain) que contém os arquivos: Conta.java e ContaRepo.java;
