@@ -1,13 +1,15 @@
 package ifpa.appjpa.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Version;
 
 @Entity
-public class Conta implements Serializable {
+public class ContaVersionada implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,11 +19,14 @@ public class Conta implements Serializable {
 
     private float saldo;
 
-    public Conta() {
+    @Version
+    private Date ultmAlteracao;
+
+    public ContaVersionada() {
 
     }
 
-    public Conta(String nomeCliente, float saldo) {
+    public ContaVersionada(String nomeCliente, float saldo) {
 
         this.nomeCliente = nomeCliente;
 
@@ -35,6 +40,14 @@ public class Conta implements Serializable {
 
     public void retirar(float valor) {
         saldo -= valor;
+    }
+
+    public Date getUltmAlteracao() {
+        return ultmAlteracao;
+    }
+
+    public void setUltmAlteracao(Date ultmAlteracao) {
+        this.ultmAlteracao = ultmAlteracao;
     }
 
     public Long getId() {
