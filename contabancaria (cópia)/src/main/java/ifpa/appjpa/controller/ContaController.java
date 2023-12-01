@@ -65,4 +65,38 @@ public class ContaController {
         return contaRepo.save(conta);
     }
 
+    @PutMapping("/deposita/{id}")
+    public ResponseEntity<String> deposita(@PathVariable int id, @RequestParam float valor) {
+    Optional<Conta> contaOptional = contaRepo.findById(id);
+
+        if (contaOptional.isPresent()) {
+            Conta conta = contaOptional.get();
+            float novoSaldo = conta.getSaldo() + valor;
+            conta.setSaldo(novoSaldo);
+            contaRepo.save(conta);
+            return ResponseEntity.ok("Depósito de R$" + valor + " realizado com sucesso. Novo saldo: R$" + novoSaldo);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/retirada/{id}")
+    public ResponseEntity<String> retirada(@PathVariable int id, @RequestParam float valor) {
+        Optional<Conta> contaOptional = contaRepo.findById(id);
+
+        if (contaOptional.isPresent()) {
+            Conta conta = contaOptional.get();
+
+            if (conta.getSaldo() >= valor) {
+                float novoSaldo = conta.getSaldo() - valor;
+                conta.setSaldo(novoSaldo);
+                contaRepo.save(conta);
+                return ResponseEntity.ok("Retirada de R$" + valor + " realizada com sucesso. Novo saldo: R$" + novoSaldo);
+            } else {
+                return ResponseEntity.badRequest().body("Saldo insuficiente para a retirada.");
+            }
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
