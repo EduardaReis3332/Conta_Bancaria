@@ -7,11 +7,8 @@ import ifpa.appjpa.domain.ContaRepo;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +21,11 @@ public class ContaController {
     private ContaRepo contaRepo;
 
     public ContaController() {
+    }
+
+    @GetMapping("/todos")
+    public List<Conta> pesquisarTodos() {
+        return contaRepo.findAll();
     }
 
     @GetMapping("/buscar/{id}")
@@ -79,25 +81,4 @@ public class ContaController {
             return ResponseEntity.notFound().build();
         }
     }
-
-    @GetMapping("/todos")
-    public List<Conta> pesquisarTodos() {
-        return contaRepo.findAll();
-    }
-
-    @PostMapping("/conta/salvar")
-    public Conta salvar(@RequestBody Conta conta) {
-        return contaRepo.save(conta);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
-        contaRepo.deleteById(id);
-    }
-
-    @PutMapping
-    public Conta alterar(@RequestBody Conta conta) {
-        return contaRepo.save(conta);
-    }
-
 }
