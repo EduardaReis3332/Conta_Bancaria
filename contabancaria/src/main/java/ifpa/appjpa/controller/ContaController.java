@@ -23,7 +23,8 @@ public class ContaController {
     @Autowired
     private ContaRepo contaRepo;
 
-    public ContaController() {}
+    public ContaController() {
+    }
 
     @GetMapping("/buscar/{id}")
     public Conta buscar(@PathVariable Long id) {
@@ -33,6 +34,9 @@ public class ContaController {
 
     @PutMapping("/deposita/{id}")
     public ResponseEntity<String> deposita(@PathVariable Long id, @RequestParam float valor) {
+        System.out.println("ID da conta para depósito: " + id);
+        System.out.println("Valor do depósito: " + valor);
+
         Optional<Conta> contaOptional = contaRepo.findById(id);
 
         if (contaOptional.isPresent()) {
@@ -40,14 +44,20 @@ public class ContaController {
             float novoSaldo = conta.getSaldo() + valor;
             conta.setSaldo(novoSaldo);
             contaRepo.save(conta);
-            return ResponseEntity.ok("Depósito de R$" + valor + " realizado com sucesso. Novo saldo: R$" + novoSaldo);
+            String mensagem = "Depósito de R$" + valor + " realizado com sucesso. Novo saldo: R$" + novoSaldo;
+            System.out.println(mensagem);
+            return ResponseEntity.ok(mensagem);
         } else {
+            System.out.println("Conta não encontrada para o ID: " + id);
             return ResponseEntity.notFound().build();
         }
     }
 
     @PutMapping("/retirada/{id}")
     public ResponseEntity<String> retirada(@PathVariable Long id, @RequestParam float valor) {
+        System.out.println("ID da conta para retirada: " + id);
+        System.out.println("Valor da retirada: " + valor);
+
         Optional<Conta> contaOptional = contaRepo.findById(id);
 
         if (contaOptional.isPresent()) {
@@ -57,11 +67,15 @@ public class ContaController {
                 float novoSaldo = conta.getSaldo() - valor;
                 conta.setSaldo(novoSaldo);
                 contaRepo.save(conta);
-                return ResponseEntity.ok("Retirada de R$" + valor + " realizada com sucesso. Novo saldo: R$" + novoSaldo);
+                String mensagem = "Retirada de R$" + valor + " realizada com sucesso. Novo saldo: R$" + novoSaldo;
+                System.out.println(mensagem);
+                return ResponseEntity.ok(mensagem);
             } else {
+                System.out.println("Saldo insuficiente para a retirada. Saldo atual: R$" + conta.getSaldo());
                 return ResponseEntity.badRequest().body("Saldo insuficiente para a retirada.");
             }
         } else {
+            System.out.println("Conta não encontrada para o ID: " + id);
             return ResponseEntity.notFound().build();
         }
     }
