@@ -20,8 +20,7 @@ public class ContaController {
     @Autowired
     private ContaRepo contaRepo;
 
-    public ContaController() {
-    }
+    public ContaController() {}
 
     @GetMapping("/todos")
     public List<Conta> pesquisarTodos() {
